@@ -18,22 +18,22 @@ const loginUser = async (req, res) => {
 		const token = createToken(user._id);
 
 		const username = user.username;
-		const favourites = user.favourites;
-		const playlists = user.playlists;
-		const userId = user._id;
-		const defaultAnimation = user.defaultAnimation;
-		const defaultView = user.defaultView;
+		// const favourites = user.favourites;
+		// const playlists = user.playlists;
+		// const userId = user._id;
+		// const defaultAnimation = user.defaultAnimation;
+		// const defaultView = user.defaultView;
 
 		console.log(user, 'loginUser backend');
 		res.status(200).json({
 			email,
 			token,
 			username,
-			favourites,
-			playlists,
-			userId,
-			defaultAnimation,
-			defaultView,
+			// favourites,
+			// playlists,
+			// userId,
+			// defaultAnimation,
+			// defaultView,
 		});
 	} catch (error) {
 		res.status(400).json({ error: error.message });
@@ -106,4 +106,8 @@ const signupUser = async (req, res) => {
 // 	res.status(200).json(user);
 // };
 
-module.exports = { signupUser, loginUser, updateUser, getUsers, getUser };
+module.exports = {
+	signupUser,
+	loginUser,
+	// , updateUser, getUsers, getUser
+};
