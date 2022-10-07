@@ -9,10 +9,24 @@ const levelSchema = new Schema(
 			required: true,
 			unique: true,
 		},
+		difficultyTypes: {
+			type: [
+				{
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'Difficulty',
+					required: false,
+				},
+			],
+		},
 		category: {
 			type: String,
 			required: true,
 			unique: true,
+		},
+		questionCount: {
+			type: Number,
+			required: true,
+			default: 5,
 		},
 		songs: {
 			type: [

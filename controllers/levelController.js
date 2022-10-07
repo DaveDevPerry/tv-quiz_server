@@ -8,7 +8,8 @@ const getLevels = async (req, res) => {
 	// only finds gigs that match user_id
 	const levels = await Level.find({})
 		.sort({ createdAt: 1 })
-		.populate({ path: 'songs' });
+		.populate({ path: 'songs difficultyTypes' });
+	// .populate({ path: 'songs' });
 	res.status(200).json(levels);
 };
 // const getLevels = async (req, res) => {
@@ -59,6 +60,7 @@ const createLevel = async (req, res) => {
 		const level = await Level.create({
 			difficulty,
 			category,
+			questionCount,
 			songs: [],
 		});
 		// gig.support_bands.push()
