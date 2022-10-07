@@ -21,6 +21,12 @@ const userSchema = new Schema(
 			unique: true,
 			lowercase: true,
 		},
+		correctSongIDs: [
+			{
+				type: String,
+				unique: true,
+			},
+		],
 		// favourites: {
 		// 	type: mongoose.Schema.Types.ObjectId,
 		// 	ref: 'Favourites',

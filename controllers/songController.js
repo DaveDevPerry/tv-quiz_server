@@ -6,7 +6,8 @@ const getSongs = async (req, res) => {
 	// const user_id = req.user._id;
 
 	// only finds gigs that match user_id
-	const songs = await Song.find({}).sort({ createdAt: -1 });
+	const songs = await Song.find({}).sort({ title: 1 });
+	// const songs = await Song.find({}).sort({ createdAt: -1 });
 	res.status(200).json(songs);
 };
 // const getSongs = async (req, res) => {

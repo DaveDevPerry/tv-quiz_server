@@ -7,7 +7,7 @@ const getLevels = async (req, res) => {
 
 	// only finds gigs that match user_id
 	const levels = await Level.find({})
-		.sort({ createdAt: -1 })
+		.sort({ createdAt: 1 })
 		.populate({ path: 'songs' });
 	res.status(200).json(levels);
 };
