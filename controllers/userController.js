@@ -106,6 +106,84 @@ const signupUser = async (req, res) => {
 // 	res.status(200).json(user);
 // };
 
+// // update a playlist
+// const updatePlaylist = async (req, res) => {
+// 	const { id } = req.params;
+// 	const { plData } = req.body;
+// 	// const { songId } = req.body;
+// 	console.log(plData, 'songId');
+// 	// console.log(songId, 'songId');
+// 	// const favs = { ...req.body };
+// 	// console.log(favs, 'fav');
+// 	console.log(id, 'id');
+// 	// check if id exists
+// 	if (!mongoose.Types.ObjectId.isValid(id)) {
+// 		return res.status(404).json({ error: 'No such user' });
+// 	}
+// 	const playlist = await Playlist.findByIdAndUpdate(
+// 		{ _id: plData.plID },
+// 		{ ...req.body, $push: { songs: plData.sID } }
+// 		// second object contains data to update
+// 		// {
+// 		// gets all properties in body
+// 		// ...req.body,
+// 		// favourites: req.body.favourites.push(songId),
+// 		// favourites: ...favourites,songId,
+// 		// ...req.body,
+// 		// first_name: first_name,
+// 		// }
+// 	);
+// 	if (!playlist) {
+// 		return res.status(404).json({ error: 'No such playlist' });
+// 	}
+// 	// const playlist = await Playlist.findByIdAndUpdate(
+// 	// 	{ _id: id },
+// 	// 	{ ...req.body, $push: { songs: songId } }
+// 	// 	// second object contains data to update
+// 	// 	// {
+// 	// 	// gets all properties in body
+// 	// 	// ...req.body,
+// 	// 	// favourites: req.body.favourites.push(songId),
+// 	// 	// favourites: ...favourites,songId,
+// 	// 	// ...req.body,
+// 	// 	// first_name: first_name,
+// 	// 	// }
+// 	// );
+// 	// if (!playlist) {
+// 	// 	return res.status(404).json({ error: 'No such playlist' });
+// 	// }
+// 	res.status(200).json(playlist);
+// };
+
+// const updateUser = async (req, res) => {
+// 	const { id } = req.params;
+// 	const { songId } = req.body;
+// 	const favs = { ...req.body };
+// 	console.log(favs, 'fav');
+// 	console.log(id, 'id');
+// 	// check if id exists
+// 	if (!mongoose.Types.ObjectId.isValid(id)) {
+// 		return res.status(404).json({ error: 'No such user' });
+// 	}
+// 	const user = await User.findByIdAndUpdate(
+// 		{ _id: id },
+// 		{ ...req.body, $push: { favourites: songId } },
+// 		// second object contains data to update
+// 		{
+// 			// gets all properties in body
+// 			// ...req.body,
+// 			// favourites: req.body.favourites.push(songId),
+// 			// favourites: ...favourites,songId,
+// 			// ...req.body,
+// 			// first_name: first_name,
+// 		}
+// 	);
+// 	if (!user) {
+// 		return res.status(404).json({ error: 'No such user' });
+// 	}
+// 	res.status(200).json(user);
+// };
+
 module.exports = {
 	signupUser,
 	loginUser,
