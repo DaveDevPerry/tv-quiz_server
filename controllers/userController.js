@@ -56,15 +56,15 @@ const signupUser = async (req, res) => {
 	}
 };
 
-// // get users
-// const getUsers = async (req, res) => {
-// 	const users = await User.find({});
-// 	try {
-// 		res.status(200).json({ users });
-// 	} catch (error) {
-// 		res.status(400).json({ error: error.message });
-// 	}
-// };
+// get users
+const getUsers = async (req, res) => {
+	const users = await User.find({});
+	try {
+		res.status(200).json(users);
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
+};
 
 // // get user
 // const getUser = async (req, res) => {
@@ -77,34 +77,35 @@ const signupUser = async (req, res) => {
 // 	}
 // };
 
-// const updateUser = async (req, res) => {
-// 	const { id } = req.params;
-// 	const { songId } = req.body;
-// 	const favs = { ...req.body };
-// 	console.log(favs, 'fav');
-// 	console.log(id, 'id');
-// 	// check if id exists
-// 	if (!mongoose.Types.ObjectId.isValid(id)) {
-// 		return res.status(404).json({ error: 'No such user' });
-// 	}
-// 	const user = await User.findByIdAndUpdate(
-// 		{ _id: id },
-// 		{ ...req.body, $push: { favourites: songId } },
-// 		// second object contains data to update
-// 		{
-// 			// gets all properties in body
-// 			// ...req.body,
-// 			// favourites: req.body.favourites.push(songId),
-// 			// favourites: ...favourites,songId,
-// 			// ...req.body,
-// 			// first_name: first_name,
-// 		}
-// 	);
-// 	if (!user) {
-// 		return res.status(404).json({ error: 'No such user' });
-// 	}
-// 	res.status(200).json(user);
-// };
+const updateUser = async (req, res) => {
+	const { id } = req.params;
+	const { songID } = req.body;
+	// const favs = { ...req.body };
+	// console.log(favs, 'fav');
+	console.log(id, 'id');
+	console.log(songID, 'songId');
+	// check if id exists
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(404).json({ error: 'No such user' });
+	}
+	const user = await User.findByIdAndUpdate(
+		{ _id: id },
+		{ ...req.body, $push: { correctSongIDs: songID } },
+		// second object contains data to update
+		{
+			// gets all properties in body
+			// ...req.body,
+			// favourites: req.body.favourites.push(songId),
+			// favourites: ...favourites,songId,
+			// ...req.body,
+			// first_name: first_name,
+		}
+	);
+	if (!user) {
+		return res.status(404).json({ error: 'No such user' });
+	}
+	res.status(200).json(user);
+};
 
 // // update a playlist
 // const updatePlaylist = async (req, res) => {
@@ -187,5 +188,7 @@ const signupUser = async (req, res) => {
 module.exports = {
 	signupUser,
 	loginUser,
+	getUsers,
+	updateUser,
 	// , updateUser, getUsers, getUser
 };
