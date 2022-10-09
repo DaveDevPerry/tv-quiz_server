@@ -104,6 +104,20 @@ userSchema.statics.signup = async function (email, password, username) {
 	return user;
 };
 
+// userSchema.pre('update', function (next) {
+// 	console.log(this, 'this');
+// 	// const modifiedField = this.getUpdate().$set.field;
+// 	// if (!modifiedField) {
+// 	// 		return next();
+// 	// }
+// 	try {
+// 		// const newFieldValue = // do whatever...
+// 		// this.getUpdate().$set.field = newFieldValue;
+// 		next();
+// 	} catch (error) {
+// 		return next(error);
+// 	}
+// });
 // userSchema.pre('save', async function (next) {
 // 	// const user = await User.findByIdAndUpdate({_id: this.user_id},
 // 	// 	{...user, $push: { playlists: this._id }}
