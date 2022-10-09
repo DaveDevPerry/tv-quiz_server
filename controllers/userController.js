@@ -79,27 +79,29 @@ const getUsers = async (req, res) => {
 
 const updateUser = async (req, res) => {
 	const { id } = req.params;
-	const { songID } = req.body;
+	const { correctResultData } = req.body;
+	// const { songID } = req.body;
+	// const { questionResult } = req.body;
+	// const { musicID } = req.body;
+	console.log(req.body, 'body');
+	console.log(correctResultData, 'correctResultData');
 	// const favs = { ...req.body };
 	// console.log(favs, 'fav');
 	console.log(id, 'id');
-	console.log(songID, 'songId');
+	// console.log(musicID, 'musicID');
+	// console.log(questionResult, 'questionResult');
+	// console.log(songID, 'songId');
 	// check if id exists
 	if (!mongoose.Types.ObjectId.isValid(id)) {
 		return res.status(404).json({ error: 'No such user' });
 	}
 	const user = await User.findByIdAndUpdate(
 		{ _id: id },
-		{ ...req.body, $push: { correctSongIDs: songID } },
-		// second object contains data to update
-		{
-			// gets all properties in body
-			// ...req.body,
-			// favourites: req.body.favourites.push(songId),
-			// favourites: ...favourites,songId,
-			// ...req.body,
-			// first_name: first_name,
-		}
+		// { ...req.body, $push: { correctSongIDs: '234235636' } }
+		// { ...req.body, $push: { correctSongIDs: questionResult.songID } }
+		// { ...req.body, $push: { correctSongIDs: musicID } }
+		{ ...req.body, $push: { correctSongIDs: correctResultData.correctSongID } }
+		// { ...req.body, $push: { correctSongIDs: songID } }
 	);
 	if (!user) {
 		return res.status(404).json({ error: 'No such user' });

@@ -11,12 +11,11 @@ const {
 const router = express.Router();
 router.get('/', getUsers);
 
+router.patch('/:id', updateUser);
 // login route
 router.post('/login', loginUser);
 
 // signup route
 router.post('/signup', signupUser);
-
-router.patch('/:id', updateUser);
 
 module.exports = router;

@@ -27,6 +27,11 @@ const userSchema = new Schema(
 				unique: true,
 			},
 		],
+		results: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Result',
+			required: false,
+		},
 		// favourites: {
 		// 	type: mongoose.Schema.Types.ObjectId,
 		// 	ref: 'Favourites',

@@ -10,6 +10,7 @@ const userRoutes = require('./routes/user');
 const songRoutes = require('./routes/songs');
 const levelRoutes = require('./routes/levels');
 const difficultyRoutes = require('./routes/difficulties');
+const resultRoutes = require('./routes/results');
 
 app.use(cors());
 
@@ -25,6 +26,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/songs', songRoutes);
 app.use('/api/levels', levelRoutes);
 app.use('/api/difficulty', difficultyRoutes);
+app.use('/api/results', resultRoutes);
 
 // connect to db
 mongoose
