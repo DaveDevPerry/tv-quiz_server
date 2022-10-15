@@ -24,8 +24,9 @@ const userSchema = new Schema(
 		correctSongIDs: [
 			{
 				type: String,
-				unique: true,
+				// unique: true,
 			},
+			// unique: false,
 		],
 		results: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -99,7 +100,12 @@ userSchema.statics.signup = async function (email, password, username) {
 	const salt = await bcrypt.genSalt(10);
 	const hash = await bcrypt.hash(password, salt);
 
-	const user = await this.create({ email, password: hash, username });
+	const user = await this.create({
+		email,
+		password: hash,
+		username,
+		correctSongIDs: [''],
+	});
 
 	return user;
 };

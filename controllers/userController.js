@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 // mongo uses _id for id property
 const createToken = (_id) => {
 	// {payload headline_band} , secret, expires 3 days
-	return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
+	return jwt.sign({ _id }, process.env.SECRET);
+	// return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
 };
 
 // login user
@@ -18,6 +19,7 @@ const loginUser = async (req, res) => {
 		const token = createToken(user._id);
 
 		const username = user.username;
+		// const correctSongIDs = user.correctSongIDs;
 		// const favourites = user.favourites;
 		// const playlists = user.playlists;
 		// const userId = user._id;
@@ -29,6 +31,7 @@ const loginUser = async (req, res) => {
 			email,
 			token,
 			username,
+			// correctSongIDs,
 			// favourites,
 			// playlists,
 			// userId,
@@ -96,6 +99,7 @@ const updateUser = async (req, res) => {
 	}
 	const user = await User.findByIdAndUpdate(
 		{ _id: id },
+		// { ...req.body, $push: { correctSongIDs: correctSongID } }
 		{ ...req.body, $addToSet: { correctSongIDs: correctSongID } }
 	);
 	// const user = await User.findByIdAndUpdate(
