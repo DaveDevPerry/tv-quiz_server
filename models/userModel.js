@@ -21,10 +21,20 @@ const userSchema = new Schema(
 			unique: true,
 			lowercase: true,
 		},
+		// correctSongIDs: {
+		// 	type: [
+		// 		{
+		// 			type: String,
+		// 			unique: true,
+		// 		},
+		// 		// unique: false,
+		// 	],
+		// 	required: true,
+		// },
 		correctSongIDs: [
 			{
 				type: String,
-				// unique: true,
+				unique: true,
 			},
 			// unique: false,
 		],
@@ -104,7 +114,9 @@ userSchema.statics.signup = async function (email, password, username) {
 		email,
 		password: hash,
 		username,
-		correctSongIDs: [''],
+		// correctSongIDs,
+		// correctSongIDs: [''],
+		// correctSongIDs: [''],
 	});
 
 	return user;
