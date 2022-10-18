@@ -46,6 +46,7 @@ const loginUser = async (req, res) => {
 
 // signup user
 const signupUser = async (req, res) => {
+	console.log('signup user - user controller');
 	const { email, password, username } = req.body;
 	try {
 		// signup() is the static method of user

@@ -22,23 +22,27 @@ const userSchema = new Schema(
 			unique: true,
 			lowercase: true,
 		},
-		// correctSongIDs: {
-		// 	type: [
-		// 		{
-		// 			type: String,
-		// 			unique: true,
-		// 		},
-		// 		// unique: false,
-		// 	],
-		// 	required: true,
-		// },
-		correctSongIDs: [
-			{
-				type: String,
-				unique: true,
-			},
-			// unique: false,
-		],
+		correctSongIDs: {
+			type: [
+				{
+					type: String,
+					unique: true,
+					required: false,
+				},
+				// unique: false,
+			],
+			required: true,
+			default: [],
+			// index: { unique: true, sparse: true },
+		},
+		// correctSongIDs: [
+		// 	{
+		// 		type: String,
+		// 		required: false,
+		// 		// unique: true,
+		// 	},
+		// 	// index: { unique: true, sparse: true },
+		// ],
 		results: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Result',
@@ -51,6 +55,7 @@ const userSchema = new Schema(
 // @ note  DON'T USE ARROW FUNCTIONS IF USING "THIS" KEYWORD
 // static signup method - call this method on the user model whenever we want to signup a new user
 userSchema.statics.signup = async function (email, password, username) {
+	console.log('signup in user model');
 	// validation
 	if (!email || !password || !username) {
 		throw Error('All fields must be filled');
@@ -75,14 +80,29 @@ userSchema.statics.signup = async function (email, password, username) {
 	const salt = await bcrypt.genSalt(10);
 	const hash = await bcrypt.hash(password, salt);
 
+	// const result = await Result.create({
+	// 	correctSongs: [],
+	// 	playedCount: 0,
+	// 	songCount: 0,
+	// 	correctSongCount: 0,
+	// 	// user_id: await user._id,
+	// });
+
+	// console.log(result, 'result created with user id?');
+
 	const user = await this.create({
 		email,
 		password: hash,
 		username,
-		// correctSongIDs,
+		correctSongIDs: [],
 		// correctSongIDs: [''],
-		// correctSongIDs: [''],
+		// results: await result._id,
 	});
+	// correctSongIDs,
+	// correctSongIDs: [''],
+	// correctSongIDs: [''],
+
+	console.log(await user, 'user just created');
 
 	const result = await Result.create({
 		correctSongs: [],
@@ -93,6 +113,10 @@ userSchema.statics.signup = async function (email, password, username) {
 	});
 
 	console.log(result, 'result created with user id?');
+
+	user.results = await result._id;
+
+	await user.save();
 
 	return user;
 };
