@@ -44,42 +44,6 @@ const userSchema = new Schema(
 			ref: 'Result',
 			required: false,
 		},
-		// favourites: {
-		// 	type: mongoose.Schema.Types.ObjectId,
-		// 	ref: 'Favourites',
-		// 	required: false,
-		// },
-		// favourites: {
-		// 	type: [
-		// 		{
-		// 			type: mongoose.Schema.Types.ObjectId,
-		// 			ref: 'Song',
-		// 			required: false,
-		// 		},
-		// 	],
-		// },
-		// playlists: {
-		// 	type: [
-		// 		{
-		// 			type: mongoose.Schema.Types.ObjectId,
-		// 			ref: 'Playlist',
-		// 			required: false,
-		// 		},
-		// 	],
-		// },
-		// defaultAnimation: {
-		// 	type: String,
-		// 	default: 'display-default',
-		// 	required: true,
-		// },
-		// defaultView: {
-		// 	type: String,
-		// 	default: 'tracklist',
-		// 	required: true,
-		// },
-		// first_name: {
-		// 	type: String,
-		// },
 	},
 	{ timestamps: true }
 );
@@ -124,7 +88,8 @@ userSchema.statics.signup = async function (email, password, username) {
 		correctSongs: [],
 		playedCount: 0,
 		songCount: 0,
-		user_id: user._id,
+		correctSongCount: 0,
+		user_id: await user._id,
 	});
 
 	console.log(result, 'result created with user id?');

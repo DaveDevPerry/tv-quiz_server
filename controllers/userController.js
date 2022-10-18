@@ -61,7 +61,10 @@ const signupUser = async (req, res) => {
 
 // get users
 const getUsers = async (req, res) => {
-	const users = await User.find({});
+	const users = await User.find({}).populate({
+		path: 'results',
+	});
+
 	try {
 		res.status(200).json(users);
 	} catch (error) {

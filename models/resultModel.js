@@ -30,6 +30,11 @@ const resultSchema = new Schema(
 			required: true,
 			default: 0,
 		},
+		correctSongCount: {
+			type: Number,
+			required: true,
+			default: 0,
+		},
 		songCount: {
 			type: Number,
 			required: true,
