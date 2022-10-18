@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const Result = require('../models/resultModel');
 
 const Schema = mongoose.Schema;
 
@@ -118,6 +119,15 @@ userSchema.statics.signup = async function (email, password, username) {
 		// correctSongIDs: [''],
 		// correctSongIDs: [''],
 	});
+
+	const result = await Result.create({
+		correctSongs: [],
+		playedCount: 0,
+		songCount: 0,
+		user_id: user._id,
+	});
+
+	console.log(result, 'result created with user id?');
 
 	return user;
 };

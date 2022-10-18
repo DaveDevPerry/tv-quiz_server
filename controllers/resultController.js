@@ -87,11 +87,15 @@ const createResult = async (req, res) => {
 		const user_id = req.user._id;
 		const result = await Result.create({
 			correctSongIDs: [songID],
-			incorrectSongIDs: [],
-			// songs,
+			playedCount: 0,
+			songCount: 0,
 			user_id,
 		});
-		// gig.support_bands.push()
+		// const result = await Result.create({
+		// 	correctSongIDs: [songID],
+		// 	incorrectSongIDs: [],
+		// 	user_id,
+		// });
 		res.status(200).json(result);
 	} catch (error) {
 		res.status(400).json({ error: error.message });
@@ -125,20 +129,13 @@ const deleteResult = async (req, res) => {
 
 // update a playlist
 const updateResult = async (req, res) => {
-	// const user_id = req.user._id;
-	// console.log(req.headers, 'req headers');
 	const { id } = req.params;
-	// const { songID } = req.body;
-	const { correctSongID } = req.body;
-	// const { obj } = req.body;
-	// console.log(songID, 'songId');
-	console.log(correctSongID, 'correctSongID');
-	// console.log(obj, 'obj');
-	// console.log(JSON.parse(obj), 'obj');
-	// console.log(req.body, 'body');
-	// console.log(songId, 'songId');
-	// const favs = { ...req.body };
-	// console.log(favs, 'fav');
+
+	// const { correctSongID } = req.body;
+	// console.log(correctSongID, 'correctSongID');
+	const { resultData } = req.body;
+	console.log(resultData, 'resultData in be update Result');
+
 	console.log(id, 'id');
 	// check if id exists
 	if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -146,7 +143,37 @@ const updateResult = async (req, res) => {
 	}
 	const result = await Result.findByIdAndUpdate(
 		{ _id: id },
-		{ ...req.body, $push: { correctSongIDs: correctSongID } }
+		{
+			...req.body,
+			// $inc: { playedCount: 1 },
+
+			$inc: { songCount: resultData.songCountToAdd, playedCount: 1 },
+			$addToSet: {
+				correctSongs: {
+					$each: resultData.correctSongIds,
+				},
+			},
+			// { $inc: { playedCount: 1 } },
+			// playedCount: +resultData.playedCountToAdd,
+			// songCount: +resultData.songCountToAdd,
+			// playedCount: playedCount + resultData.playedCountToAdd,
+			// songCount: songCount + resultData.songCountToAdd,
+		}
+
+		// { $addToSet: { correctSongs: {
+		// 	$each: resultData.correctSongIds,
+		// 	$sort: -1
+		// } } }
+		// { $addToSet: { correctSongs: {
+		// 	$each: [
+		// 		'1239jasdf',
+		// 		'3919329AFSDKFSDf',
+		// 		'9123942jasdfj'
+		// 	],
+		// 	$sort: -1
+		// } } }
+		// { ...req.body, $addToSet: { correctSongIDs: correctSongID } }
+		// { ...req.body, $push: { correctSongIDs: correctSongID } }
 		// second object contains data to update
 		// {
 		// gets all properties in body
@@ -207,6 +234,7 @@ const updateResult = async (req, res) => {
 	// if (!result) {
 	// 	return res.status(404).json({ error: 'No such result' });
 	// }
+	console.log(result, 'result to return to fe');
 	res.status(200).json(result);
 };
 
