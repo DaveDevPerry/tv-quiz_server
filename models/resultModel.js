@@ -8,23 +8,13 @@ const resultSchema = new Schema(
 				{
 					type: String,
 					unique: true,
+					required: false,
 				},
 			],
+			index: { unique: true, dropDups: true },
+			required: true,
+			default: [],
 		},
-		// correctSongIDs: {
-		// 	type: [
-		// 		{
-		// 			type: String,
-		// 			unique: true,
-		// 		},
-		// 	],
-		// },
-		// correctSongIDs:  [
-		// 	{
-		// 		type: String,
-		// 		unique: true,
-		// 	},
-		// ],
 		playedCount: {
 			type: Number,
 			required: true,
