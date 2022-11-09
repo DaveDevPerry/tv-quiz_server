@@ -23,6 +23,7 @@ const loginUser = async (req, res) => {
 		// const favourites = user.favourites;
 		// const playlists = user.playlists;
 		// const userId = user._id;
+		// const userId = user._id;
 		// const defaultAnimation = user.defaultAnimation;
 		// const defaultView = user.defaultView;
 
